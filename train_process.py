@@ -1,11 +1,10 @@
 import cv2
-import h5py
 import numpy as np
 
 RGB_ROOT ='/home/yicheng/Downloads/miccai/sensei/RGBdata/left/'
 Seg_ROOT='/home/yicheng/Downloads/miccai/sensei/lasersegmap/'
-h5_ROOT='/home/yicheng/Downloads/miccai/sensei/test/'
-list_path='/home/yicheng/Downloads/miccai/sensei/split_diffusion/test.txt'
+npz_ROOT='/home/yicheng/Downloads/miccai/sensei/train/'
+list_path='/home/yicheng/Downloads/miccai/sensei/split_diffusion/train.txt'
 
 file=open(list_path, mode="r")
 line = file.readline()
@@ -16,7 +15,7 @@ while line:
 
     RGB_INPUT_PATH=RGB_ROOT+case+'.jpg'
     Seg_PATH=Seg_ROOT+case+'.jpg'
-    h5_PATH=h5_ROOT+case+'.npy.h5'
+    npz_PATH=npz_ROOT+case+'.npz'
 
     img = cv2.imread(RGB_INPUT_PATH, cv2.IMREAD_UNCHANGED)
     #print(img.shape)
@@ -43,20 +42,7 @@ while line:
     #cv2.waitKey(0)
     #
     #
-    with h5py.File(h5_PATH, 'w') as hf:
-        hf.create_dataset('image',  data=img_resize[np.newaxis,:])
-        hf.create_dataset('label',data=img2_resize[np.newaxis,:])
-
-    f = h5py.File(h5_PATH,'r')
-    #print(f.keys())
-    image = f['image'][:]
-    label = f['label'][:]
-    #print(image)
-    #print(image.shape)
-    #print(label)
-    #print(label.shape)
-    f.close()
-
+    np.savez(npz_PATH,image=img_resize, label=img2_bin)
 
     line = file.readline()
 file.close()

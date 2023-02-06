@@ -4,7 +4,7 @@ import numpy as np
 
 RGB_ROOT ='/home/yicheng/Downloads/miccai/sensei/RGBdata/left/'
 Seg_ROOT='/home/yicheng/Downloads/miccai/sensei/lasersegmap/'
-h5_ROOT='/home/yicheng/Downloads/miccai/sensei/laserseggmapgraycrop/'
+h5_ROOT='/home/yicheng/Downloads/miccai/sensei/test/'
 list_path='/home/yicheng/Downloads/miccai/sensei/split_diffusion/test.txt'
 
 file=open(list_path, mode="r")
@@ -45,17 +45,17 @@ while line:
     #
     with h5py.File(h5_PATH, 'w') as hf:
         hf.create_dataset('image',  data=img_resize[np.newaxis,:])
-        hf.create_dataset('label',data=img2_resize[np.newaxis,:])
+        hf.create_dataset('label',data=img2_bin[np.newaxis,:])
 
-    f = h5py.File(h5_PATH,'r')
+    #f = h5py.File(h5_PATH,'r')
     #print(f.keys())
-    image = f['image'][:]
-    label = f['label'][:]
+    # image = f['image'][:]
+    # label = f['label'][:]
     #print(image)
     #print(image.shape)
     #print(label)
     #print(label.shape)
-    f.close()
+    #f.close()
 
 
     line = file.readline()
