@@ -1,5 +1,6 @@
 import h5py
 
+
 File_Path='/home/yicheng/Downloads/Swin-Unet/data/Synapse/test_vol_h5/case0001.npy.h5'
 
 f = h5py.File(File_Path,'r')   #打开h5文件
