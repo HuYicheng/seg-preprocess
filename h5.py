@@ -12,3 +12,4 @@ print(image.shape)
 print(label)
 print(label.shape)
 f.close()
+
