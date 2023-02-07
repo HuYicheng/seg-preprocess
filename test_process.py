@@ -26,6 +26,7 @@ while line:
     #print(img_crop.shape)
     img_resize = cv2.resize(img_crop,[512,512])
     #print(img_resize.shape)
+    img_norm = (img_resize - np.min(img_resize)) / (np.max(img_resize) - np.min(img_resize))
 
     img2=cv2.imread(Seg_PATH,cv2.IMREAD_UNCHANGED)
     #img2_gray = cv2.cvtColor(img2,cv2.COLOR_RGB2GRAY)
@@ -44,7 +45,7 @@ while line:
     #
     #
     with h5py.File(h5_PATH, 'w') as hf:
-        hf.create_dataset('image',  data=img_resize[np.newaxis,:])
+        hf.create_dataset('image',  data=img_norm[np.newaxis,:])
         hf.create_dataset('label',data=img2_bin[np.newaxis,:])
 
     #f = h5py.File(h5_PATH,'r')
