@@ -9,8 +9,9 @@ print(f.keys())                            #可以查看所有的主键
 image = f['image'][:]                    #取出主键为data的所有的键值
 label = f['label'][:]
 print(image.shape)
-cv2.imshow('label',label[0,:,:]*20)
-cv2.imshow('image',image[0,:,:])
+#cv2.imshow('label',label[0,:,:])
+print(sum(sum(label[0,:,:])))
+#cv2.imshow('image',image[0,:,:])
 cv2.waitKey(0)
 print(label.shape)
 f.close()

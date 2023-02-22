@@ -14,7 +14,7 @@ while line:
     #print(type(line))
 
     RGB_INPUT_PATH=laser_ROOT+case+'.jpg'
-    Seg_PATH=Seg_ROOT+case+'.jpg'
+    Seg_PATH=Seg_ROOT+case+'.npy'
     npz_PATH=npz_ROOT+case+'.npz'
 
     img = cv2.imread(RGB_INPUT_PATH, cv2.IMREAD_UNCHANGED)
@@ -27,14 +27,14 @@ while line:
     #print(img_resize.shape)
     img_norm = (img_resize - np.min(img_resize)) / (np.max(img_resize) - np.min(img_resize))
 
-    img2=cv2.imread(Seg_PATH,cv2.IMREAD_UNCHANGED)
+    img2=np.load(Seg_PATH)
     #img2_gray = cv2.cvtColor(img2,cv2.COLOR_RGB2GRAY)
     #print(img2_gray.shape)
     img2_crop=img2[:,152:1072]
     #print(img2_crop.shape)
     img2_resize=cv2.resize(img2_crop,[512,512])
     #print(img2_resize.shape)
-    thre,img2_bin = cv2.threshold(img2_resize,30,1,cv2.THRESH_BINARY)
+    img2_bin = np.where(img2_resize>0.5,np.uint8(1),np.uint8(0))
     # cv2.imshow('img2_resize',img2_resize)
     # cv2.imshow('img_resize',img_resize)
     # cv2.imshow('img2_bin',img2_bin)

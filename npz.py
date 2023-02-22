@@ -14,6 +14,7 @@ print(image.shape)
 print(label.shape)
 
 cv2.imshow('image',image)
-cv2.imshow('label',label*20)
+#cv2.imshow('label',label)
+print(sum(sum(label)))
 cv2.waitKey(0)
 
